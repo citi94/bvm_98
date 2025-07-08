@@ -847,12 +847,21 @@ if (document.all) {
 		// Cross-browser XMLHttpRequest creation
 		if (window.XMLHttpRequest) {
 			xmlhttp = new XMLHttpRequest();
+			if (window.console && console.log) {
+				console.log("Created XMLHttpRequest");
+			}
 		} else if (window.ActiveXObject) {
 			// IE5-6
 			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			if (window.console && console.log) {
+				console.log("Created ActiveXObject XMLHttpRequest");
+			}
 		}
 		
 		if (xmlhttp) {
+			if (window.console && console.log) {
+				console.log("XMLHttpRequest object exists, proceeding with AJAX");
+			}
 			xmlhttp.onreadystatechange = function() {
 				// Debug logging
 				if (window.console && console.log) {
@@ -913,6 +922,12 @@ if (document.all) {
 			xmlhttp.send();
 		} else {
 			// Fallback for very old browsers - just show static number
+			if (window.console && console.log) {
+				console.log("XMLHttpRequest not available - using fallback");
+				console.log("window.XMLHttpRequest:", typeof window.XMLHttpRequest);
+				console.log("window.ActiveXObject:", typeof window.ActiveXObject);
+			}
+			
 			var counter1 = document.all ? document.all.counter : document.getElementById("counter");
 			var counter2 = document.all ? document.all.counter2 : document.getElementById("counter2");
 			

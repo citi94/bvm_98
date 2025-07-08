@@ -900,6 +900,10 @@ if (document.all) {
 	// Start animations after page loads with chaotic timing
 	setTimeout(function() { changeColors(); }, 3200);
 	setTimeout(function() { showWelcome(); }, 5000);
+	// Test if JavaScript is working at all
+	document.getElementById("counter").innerHTML = "000456";
+	document.getElementById("counter2").innerHTML = "456";
+	
 	setTimeout(updateCounter, 1000);
 	setTimeout(function() { animateCounter(); }, 4300);
 	setTimeout(function() { flashBackground(); }, 11000);

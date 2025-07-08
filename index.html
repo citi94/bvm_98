@@ -837,6 +837,7 @@ if (document.all) {
 	// Web counter functions using Netlify Functions
 	function updateCounter() {
 		// Debug logging to confirm function is called
+		alert("updateCounter() function called!");
 		if (window.console && console.log) {
 			console.log("updateCounter() function called");
 		}
@@ -981,6 +982,7 @@ if (document.all) {
 	// Start animations after page loads with chaotic timing
 	setTimeout(function() { changeColors(); }, 3200);
 	setTimeout(function() { showWelcome(); }, 5000);
+	alert("About to call updateCounter in 1 second");
 	setTimeout(function() { updateCounter(); }, 1000);
 	setTimeout(function() { animateCounter(); }, 4300);
 	setTimeout(function() { flashBackground(); }, 11000);

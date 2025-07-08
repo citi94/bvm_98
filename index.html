@@ -850,7 +850,13 @@ if (document.all) {
 			var currentCount = parseInt(counter2.innerHTML) || 123;
 			var newCount = currentCount + 1;
 			
-			document.getElementById("counter").innerHTML = newCount.toString().padStart(6, '0');
+			// 90s-compatible zero padding
+			var formatted = newCount.toString();
+			while (formatted.length < 6) {
+				formatted = "0" + formatted;
+			}
+			
+			document.getElementById("counter").innerHTML = formatted;
 			document.getElementById("counter2").innerHTML = newCount;
 		}
 	}
@@ -901,6 +907,7 @@ if (document.all) {
 	setTimeout(function() { changeColors(); }, 3200);
 	setTimeout(function() { showWelcome(); }, 5000);
 	// Test if JavaScript is working at all
+	alert("JavaScript is working!");
 	document.getElementById("counter").innerHTML = "000456";
 	document.getElementById("counter2").innerHTML = "456";
 	

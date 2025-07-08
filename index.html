@@ -834,107 +834,36 @@ if (document.all) {
 		}, 2100 + Math.random() * 1000);
 	}
 	
-	// Web counter functions using Netlify Functions
+	// Simple counter function using Netlify Functions
 	function updateCounter() {
-		// Debug logging to confirm function is called
-		alert("updateCounter() function called!");
-		if (window.console && console.log) {
-			console.log("updateCounter() function called");
-		}
+		// Create XMLHttpRequest
+		var xhr = new XMLHttpRequest();
 		
-		// Try to fetch from Netlify function
-		var xmlhttp;
-		
-		// Cross-browser XMLHttpRequest creation
-		if (window.XMLHttpRequest) {
-			xmlhttp = new XMLHttpRequest();
-			if (window.console && console.log) {
-				console.log("Created XMLHttpRequest");
-			}
-		} else if (window.ActiveXObject) {
-			// IE5-6
-			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-			if (window.console && console.log) {
-				console.log("Created ActiveXObject XMLHttpRequest");
-			}
-		}
-		
-		if (xmlhttp) {
-			if (window.console && console.log) {
-				console.log("XMLHttpRequest object exists, proceeding with AJAX");
-			}
-			xmlhttp.onreadystatechange = function() {
-				// Debug logging
-				if (window.console && console.log) {
-					console.log("XMLHttpRequest state:", xmlhttp.readyState, "status:", xmlhttp.status);
-				}
-				
-				if (xmlhttp.readyState == 4) {
-					if (xmlhttp.status == 200) {
-						try {
-							var response;
-							if (window.JSON && window.JSON.parse) {
-								response = JSON.parse(xmlhttp.responseText);
-							} else {
-								response = eval('(' + xmlhttp.responseText + ')');
-							}
-							
-							// Update counter displays
-							var counter1 = document.all ? document.all.counter : document.getElementById("counter");
-							var counter2 = document.all ? document.all.counter2 : document.getElementById("counter2");
-							
-							if (window.console && console.log) {
-								console.log("Found counter1:", counter1);
-								console.log("Found counter2:", counter2);
-							}
-							
-							if (counter1) {
-								counter1.innerHTML = response.formatted || response.count.toString();
-								if (window.console && console.log) {
-									console.log("Updated counter1 to:", counter1.innerHTML);
-								}
-							}
-							if (counter2) {
-								counter2.innerHTML = response.count.toString();
-								if (window.console && console.log) {
-									console.log("Updated counter2 to:", counter2.innerHTML);
-								}
-							}
-							
-							if (window.console && console.log) {
-								console.log("Counter updated successfully:", response);
-							}
-						} catch (e) {
-							// Fallback to static display if JSON parsing fails
-							if (window.console && console.log) {
-								console.log("Counter update failed, using static display:", e);
-							}
-						}
-					} else {
-						// Handle non-200 status codes
-						if (window.console && console.log) {
-							console.log("Counter request failed with status:", xmlhttp.status);
-						}
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				try {
+					var data = JSON.parse(xhr.responseText);
+					
+					// Update counter displays
+					var counter1 = document.getElementById("counter");
+					var counter2 = document.getElementById("counter2");
+					
+					if (counter1) {
+						counter1.innerHTML = data.formatted;
 					}
+					if (counter2) {
+						counter2.innerHTML = data.count;
+					}
+					
+					console.log("Counter updated to:", data.count);
+				} catch (e) {
+					console.log("Error updating counter:", e);
 				}
-			};
-			
-			xmlhttp.open("GET", "https://elegant-scone-70fed5.netlify.app/.netlify/functions/counter", true);
-			xmlhttp.send();
-		} else {
-			// Fallback for very old browsers - just show static number
-			if (window.console && console.log) {
-				console.log("XMLHttpRequest not available - using fallback");
-				console.log("window.XMLHttpRequest:", typeof window.XMLHttpRequest);
-				console.log("window.ActiveXObject:", typeof window.ActiveXObject);
 			}
-			
-			var counter1 = document.all ? document.all.counter : document.getElementById("counter");
-			var counter2 = document.all ? document.all.counter2 : document.getElementById("counter2");
-			
-			if (counter1) counter1.innerHTML = "000123";
-			if (counter2) counter2.innerHTML = "123";
-		}
+		};
+		
+		xhr.open("GET", "https://elegant-scone-70fed5.netlify.app/.netlify/functions/counter", true);
+		xhr.send();
 	}
 	
 	function animateCounter() {
@@ -982,8 +911,7 @@ if (document.all) {
 	// Start animations after page loads with chaotic timing
 	setTimeout(function() { changeColors(); }, 3200);
 	setTimeout(function() { showWelcome(); }, 5000);
-	alert("About to call updateCounter in 1 second");
-	setTimeout(function() { updateCounter(); }, 1000);
+	setTimeout(updateCounter, 1000);
 	setTimeout(function() { animateCounter(); }, 4300);
 	setTimeout(function() { flashBackground(); }, 11000);
 	setTimeout(function() { animateText(); }, 6700);

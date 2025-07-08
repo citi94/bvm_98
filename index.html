@@ -834,36 +834,25 @@ if (document.all) {
 		}, 2100 + Math.random() * 1000);
 	}
 	
-	// Simple counter function using Netlify Functions
+	// Ultra-simple counter function
 	function updateCounter() {
-		// Create XMLHttpRequest
-		var xhr = new XMLHttpRequest();
-		
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState === 4 && xhr.status === 200) {
-				try {
-					var data = JSON.parse(xhr.responseText);
-					
-					// Update counter displays
-					var counter1 = document.getElementById("counter");
-					var counter2 = document.getElementById("counter2");
-					
-					if (counter1) {
-						counter1.innerHTML = data.formatted;
-					}
-					if (counter2) {
-						counter2.innerHTML = data.count;
-					}
-					
-					console.log("Counter updated to:", data.count);
-				} catch (e) {
-					console.log("Error updating counter:", e);
-				}
-			}
-		};
-		
-		xhr.open("GET", "https://elegant-scone-70fed5.netlify.app/.netlify/functions/counter", true);
-		xhr.send();
+		// Try modern fetch first
+		if (window.fetch) {
+			fetch('https://elegant-scone-70fed5.netlify.app/.netlify/functions/counter')
+				.then(function(response) { return response.json(); })
+				.then(function(data) {
+					document.getElementById("counter").innerHTML = data.formatted;
+					document.getElementById("counter2").innerHTML = data.count;
+				});
+		} else {
+			// Fallback: just increment from current value
+			var counter2 = document.getElementById("counter2");
+			var currentCount = parseInt(counter2.innerHTML) || 123;
+			var newCount = currentCount + 1;
+			
+			document.getElementById("counter").innerHTML = newCount.toString().padStart(6, '0');
+			document.getElementById("counter2").innerHTML = newCount;
+		}
 	}
 	
 	function animateCounter() {

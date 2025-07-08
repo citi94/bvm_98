@@ -873,11 +873,22 @@ if (document.all) {
 							var counter1 = document.all ? document.all.counter : document.getElementById("counter");
 							var counter2 = document.all ? document.all.counter2 : document.getElementById("counter2");
 							
+							if (window.console && console.log) {
+								console.log("Found counter1:", counter1);
+								console.log("Found counter2:", counter2);
+							}
+							
 							if (counter1) {
 								counter1.innerHTML = response.formatted || response.count.toString();
+								if (window.console && console.log) {
+									console.log("Updated counter1 to:", counter1.innerHTML);
+								}
 							}
 							if (counter2) {
 								counter2.innerHTML = response.count.toString();
+								if (window.console && console.log) {
+									console.log("Updated counter2 to:", counter2.innerHTML);
+								}
 							}
 							
 							if (window.console && console.log) {

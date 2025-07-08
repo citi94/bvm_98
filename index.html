@@ -836,6 +836,11 @@ if (document.all) {
 	
 	// Web counter functions using Netlify Functions
 	function updateCounter() {
+		// Debug logging to confirm function is called
+		if (window.console && console.log) {
+			console.log("updateCounter() function called");
+		}
+		
 		// Try to fetch from Netlify function
 		var xmlhttp;
 		
@@ -849,29 +854,45 @@ if (document.all) {
 		
 		if (xmlhttp) {
 			xmlhttp.onreadystatechange = function() {
-				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-					try {
-						var response;
-					if (window.JSON && window.JSON.parse) {
-						response = JSON.parse(xmlhttp.responseText);
+				// Debug logging
+				if (window.console && console.log) {
+					console.log("XMLHttpRequest state:", xmlhttp.readyState, "status:", xmlhttp.status);
+				}
+				
+				if (xmlhttp.readyState == 4) {
+					if (xmlhttp.status == 200) {
+						try {
+							var response;
+							if (window.JSON && window.JSON.parse) {
+								response = JSON.parse(xmlhttp.responseText);
+							} else {
+								response = eval('(' + xmlhttp.responseText + ')');
+							}
+							
+							// Update counter displays
+							var counter1 = document.all ? document.all.counter : document.getElementById("counter");
+							var counter2 = document.all ? document.all.counter2 : document.getElementById("counter2");
+							
+							if (counter1) {
+								counter1.innerHTML = response.formatted || response.count.toString();
+							}
+							if (counter2) {
+								counter2.innerHTML = response.count.toString();
+							}
+							
+							if (window.console && console.log) {
+								console.log("Counter updated successfully:", response);
+							}
+						} catch (e) {
+							// Fallback to static display if JSON parsing fails
+							if (window.console && console.log) {
+								console.log("Counter update failed, using static display:", e);
+							}
+						}
 					} else {
-						response = eval('(' + xmlhttp.responseText + ')');
-					}
-						
-						// Update counter displays
-						var counter1 = document.all ? document.all.counter : document.getElementById("counter");
-						var counter2 = document.all ? document.all.counter2 : document.getElementById("counter2");
-						
-						if (counter1) {
-							counter1.innerHTML = response.formatted || response.count.toString();
-						}
-						if (counter2) {
-							counter2.innerHTML = response.count.toString();
-						}
-					} catch (e) {
-						// Fallback to static display if JSON parsing fails
+						// Handle non-200 status codes
 						if (window.console && console.log) {
-							console.log("Counter update failed, using static display");
+							console.log("Counter request failed with status:", xmlhttp.status);
 						}
 					}
 				}

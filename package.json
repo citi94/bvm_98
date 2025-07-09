@@ -1,0 +1,9 @@
+{
+  "name": "bvm-98",
+  "version": "1.0.0",
+  "description": "1990s-style recreation of the Bespoke Vehicle Maintenance website",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  },
+  "type": "module"
+}

@@ -708,33 +708,11 @@ if (document.all) {
 	}
 	
 	function playClickSound() {
-		// Play click sound for navigation
-		var audio = document.getElementById("clickSound");
-		if (audio && audio.play) {
-			audio.currentTime = 0;
-			audio.play().catch(function(error) {
-				// Audio blocked, that's fine
-			});
-		}
+		// Audio removed for compatibility
 	}
 	
 	function playRandomSounds() {
-		// Play random background sounds at different intervals
-		var sounds = ["bgAudio1", "bgAudio2"];
-		var randomSound = sounds[Math.floor(Math.random() * sounds.length)];
-		var audio = document.getElementById(randomSound);
-		
-		if (audio && audio.play) {
-			audio.volume = 0.3; // Lower volume for ambience
-			audio.play().catch(function(error) {
-				// Audio blocked, that's fine
-			});
-		}
-		
-		// Schedule next random sound
-		setTimeout(function() {
-			playRandomSounds();
-		}, 15000 + Math.random() * 25000); // 15-40 seconds
+		// Audio removed for compatibility
 	}
 	
 	function playAmbientBeeps() {
@@ -925,11 +903,7 @@ if (document.all) {
 //-->
 </SCRIPT>
 
-<!-- Background sounds for authentic 90s experience -->
-<BGSOUND SRC="" LOOP="infinite">
-
-<!-- Multiple sound effects for 90s ambience -->
-<AUDIO ID="bgAudio1" LOOP STYLE="display:none">
+<!-- Audio elements removed to fix HTML structure -->
 <SCRIPT>
 // Simple working counter
 setTimeout(function() {

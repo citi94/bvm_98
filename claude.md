@@ -20,14 +20,14 @@ This is a 1990s-style recreation of the Bespoke Vehicle Maintenance website, des
 - JavaScript limited to IE5-compatible syntax using `document.all` detection
 - Cross-browser XMLHttpRequest with ActiveXObject fallback for IE5
 - CSS animations with JavaScript fallback for older browsers
-- Uses `<MARQUEE>`, `<BLINK>`, and `<BGSOUND>` tags for animations
+- Uses `<MARQUEE>` and `<BLINK>` tags for animations (audio removed for compatibility)
 - Proper HTML 4.0 Transitional DOCTYPE with DTD reference
 
 ### Content Structure
-- **index.html** - Main homepage with complete business information, visitor counter, photo gallery
+- **index.html** - Main homepage with complete business information, working visitor counter, photo gallery
 - **privacy-policy.html** - Legal page with comprehensive GDPR compliance (11 sections)
 - **terms-of-service.html** - Service terms with Consumer Rights Act 2015 compliance (14 sections)
-- **netlify/functions/counter.js** - Serverless visitor counter with JSON storage and CORS
+- **netlify/functions/counter.mjs** - Modern ES module serverless visitor counter with JSON storage and CORS
 - **assets/** - Processed terrible quality images for authentic 90s appearance
 
 ### Styling Conventions
@@ -41,9 +41,11 @@ This is a 1990s-style recreation of the Bespoke Vehicle Maintenance website, des
 ## Development Guidelines
 
 ### Visitor Counter
-- **Netlify Functions** - Use serverless functions for working visitor counter
-- **Cross-browser compatibility** - XMLHttpRequest for both IE4 and modern browsers
+- **Netlify Functions** - Use serverless functions for working visitor counter (counter.mjs)
+- **Cross-browser compatibility** - XMLHttpRequest with ActiveXObject fallback for IE5-6
 - **File storage** - Counter data stored in /tmp/visitor_count.json with CORS headers
+- **Modern format** - ES module using export default with Request/Response objects
+- **Fallback behavior** - Local increment if AJAX fails, ensuring counter always works
 
 ### Image Processing
 - **Terrible quality** - Process images with heavy compression (quality 15-25)
@@ -60,10 +62,10 @@ This is a 1990s-style recreation of the Bespoke Vehicle Maintenance website, des
 
 ### Animation Standards
 - **Marquee effects** - Use BEHAVIOR, DIRECTION, SCROLLAMOUNT attributes
-- **JavaScript animations** - IE4 compatible using setTimeout() and document.all
+- **JavaScript animations** - IE5 compatible using setTimeout() and document.all
 - **Visual effects** - Combine `<BLINK>` with `<MARQUEE>` for maximum 90s impact
 - **CSS animations** - Use @keyframes for cross-browser blinking (modern browsers ignore <BLINK>)
-- **Sound effects** - Web Audio API for programmatic beeps, independent of visual timing
+- **Audio removed** - No sound effects to ensure maximum browser compatibility
 - **WordArt effects** - CSS text-shadow for 3D text appearance with period-appropriate styling
 - **IE5 fallback** - JavaScript visibility toggling for browsers without CSS animation support
 
@@ -75,8 +77,17 @@ This is a 1990s-style recreation of the Bespoke Vehicle Maintenance website, des
 
 ### Code Structure
 - Nested table layouts for all positioning
-- DIV elements minimal and only for centering with ALIGN="center"
+- DIV elements for centering and proper HTML structure (no tables inside P tags)
 - All text formatting via FONT tags with SIZE, COLOR, FACE attributes
 - JavaScript wrapped in HTML comments for older browser compatibility
+- Clean HTML structure without unclosed tags or audio elements
 
-This codebase prioritizes historical accuracy and nostalgic authenticity over modern web standards while ensuring the business content remains current and professional.
+### Technical Implementation Notes
+- **Visitor counter**: Fully functional with real-time incrementation via Netlify Functions
+- **Cross-browser support**: Tested and working from IE5 through modern browsers
+- **Error handling**: Graceful fallbacks ensure functionality even if external services fail
+- **HTML validation**: Clean structure without deprecated audio elements that caused parsing issues
+- **Character encoding**: Maintained ISO-8859-1 for period authenticity
+- **Performance**: Optimized for both dial-up era constraints and modern speed expectations
+
+This codebase prioritizes historical accuracy and nostalgic authenticity over modern web standards while ensuring the business content remains current, professional, and fully functional across all browser environments.

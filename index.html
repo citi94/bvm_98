@@ -87,19 +87,19 @@
 <TABLE BORDER="2" CELLPADDING="2" CELLSPACING="0" WIDTH="100%" BGCOLOR="#000080" BORDERCOLOR="#000080">
 	<TR>
 		<TD BGCOLOR="#000080" ALIGN="center" WIDTH="20%">
-			<A HREF="#home" onclick="playClickSound()"><SPAN CLASS="blink1"><FONT SIZE="2" COLOR="#FFFF00" FACE="Courier New"><B>[ HOME ]</B></FONT></SPAN></A>
+			<A HREF="#home"><SPAN CLASS="blink1"><FONT SIZE="2" COLOR="#FFFF00" FACE="Courier New"><B>[ HOME ]</B></FONT></SPAN></A>
 		</TD>
 		<TD BGCOLOR="#000080" ALIGN="center" WIDTH="20%">
-			<A HREF="#services" onclick="playClickSound()"><SPAN CLASS="blink2"><FONT SIZE="2" COLOR="#FFFF00" FACE="Courier New"><B>[ SERVICES ]</B></FONT></SPAN></A>
+			<A HREF="#services"><SPAN CLASS="blink2"><FONT SIZE="2" COLOR="#FFFF00" FACE="Courier New"><B>[ SERVICES ]</B></FONT></SPAN></A>
 		</TD>
 		<TD BGCOLOR="#000080" ALIGN="center" WIDTH="20%">
-			<A HREF="#about" onclick="playClickSound()"><SPAN CLASS="blink3"><FONT SIZE="2" COLOR="#FFFF00" FACE="Courier New"><B>[ ABOUT US ]</B></FONT></SPAN></A>
+			<A HREF="#about"><SPAN CLASS="blink3"><FONT SIZE="2" COLOR="#FFFF00" FACE="Courier New"><B>[ ABOUT US ]</B></FONT></SPAN></A>
 		</TD>
 		<TD BGCOLOR="#000080" ALIGN="center" WIDTH="20%">
-			<A HREF="#contact" onclick="playClickSound()"><SPAN CLASS="fast-blink"><FONT SIZE="2" COLOR="#FFFF00" FACE="Courier New"><B>[ CONTACT ]</B></FONT></SPAN></A>
+			<A HREF="#contact"><SPAN CLASS="fast-blink"><FONT SIZE="2" COLOR="#FFFF00" FACE="Courier New"><B>[ CONTACT ]</B></FONT></SPAN></A>
 		</TD>
 		<TD BGCOLOR="#000080" ALIGN="center" WIDTH="20%">
-			<A HREF="#faq" onclick="playClickSound()"><SPAN CLASS="slow-blink"><FONT SIZE="2" COLOR="#FFFF00" FACE="Courier New"><B>[ FAQ ]</B></FONT></SPAN></A>
+			<A HREF="#faq"><SPAN CLASS="slow-blink"><FONT SIZE="2" COLOR="#FFFF00" FACE="Courier New"><B>[ FAQ ]</B></FONT></SPAN></A>
 		</TD>
 	</TR>
 </TABLE>
@@ -110,7 +110,7 @@
 </B></FONT></SPAN>
 </P>
 
-<P ALIGN="center">
+<DIV ALIGN="center">
 <TABLE BORDER="2" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#000000" BORDERCOLOR="#FF0000">
 	<TR>
 		<TD BGCOLOR="#000000" ALIGN="center">
@@ -124,7 +124,7 @@
 		</TD>
 	</TR>
 </TABLE>
-</P>
+</DIV>
 
 
 <TABLE BORDER="2" CELLPADDING="10" CELLSPACING="0" WIDTH="100%" BGCOLOR="#C0C0C0" BORDERCOLOR="#C0C0C0" BORDERCOLORLIGHT="#E0E0E0" BORDERCOLORDARK="#808080">
@@ -673,12 +673,12 @@ Opening Hours:</B> <FONT COLOR="#00FFFF">0900 to 1700, Monday to Friday</FONT>
 			</MARQUEE>
 			<BR>
 			<FONT SIZE="1" COLOR="#FFFFFF" FACE="Times New Roman">
-			<A HREF="privacy-policy.html" onclick="playClickSound()"><SPAN CLASS="blink"><FONT COLOR="#FFFF00">Privacy Policy</FONT></SPAN></A> | 
-			<A HREF="terms-of-service.html" onclick="playClickSound()"><SPAN CLASS="blink"><FONT COLOR="#FFFF00">Terms of Service</FONT></SPAN></A> | 
-			<A HREF="mailto:webmaster@bvmdeal.co.uk" onclick="playClickSound()"><SPAN CLASS="blink"><FONT COLOR="#FFFF00">Contact Webmaster</FONT></SPAN></A>
+			<A HREF="privacy-policy.html"><SPAN CLASS="blink"><FONT COLOR="#FFFF00">Privacy Policy</FONT></SPAN></A> | 
+			<A HREF="terms-of-service.html"><SPAN CLASS="blink"><FONT COLOR="#FFFF00">Terms of Service</FONT></SPAN></A> | 
+			<A HREF="mailto:webmaster@bvmdeal.co.uk"><SPAN CLASS="blink"><FONT COLOR="#FFFF00">Contact Webmaster</FONT></SPAN></A>
 			</FONT>
 			<BR><BR>
-			<SPAN CLASS="blink"><FONT SIZE="1" COLOR="#FF69B4" FACE="Arial"><B>Best viewed with Internet Explorer 4.0+ at 800x600 resolution with sound enabled!</B></FONT></SPAN>
+			<SPAN CLASS="blink"><FONT SIZE="1" COLOR="#FF69B4" FACE="Arial"><B>Best viewed with Internet Explorer 4.0+ at 800x600 resolution!</B></FONT></SPAN>
 		</TD>
 	</TR>
 </TABLE>
@@ -707,45 +707,6 @@ if (document.all) {
 		alert("*** WELCOME TO BESPOKE VEHICLE MAINTENANCE! ***\n\nYour car's new best friend!\n\n*** AMAZING AUTOMOTIVE SERVICES AWAIT! ***");
 	}
 	
-	function playClickSound() {
-		// Audio removed for compatibility
-	}
-	
-	function playRandomSounds() {
-		// Audio removed for compatibility
-	}
-	
-	function playAmbientBeeps() {
-		// Create computer-like beep sounds
-		var frequencies = [800, 1200, 600, 1000, 1500];
-		var freq = frequencies[Math.floor(Math.random() * frequencies.length)];
-		
-		// Create a simple beep using Web Audio API if available
-		if (typeof AudioContext !== 'undefined' || typeof webkitAudioContext !== 'undefined') {
-			try {
-				var audioContext = new (window.AudioContext || window.webkitAudioContext)();
-				var oscillator = audioContext.createOscillator();
-				var gainNode = audioContext.createGain();
-				
-				oscillator.connect(gainNode);
-				gainNode.connect(audioContext.destination);
-				
-				oscillator.frequency.value = freq;
-				oscillator.type = 'square';
-				gainNode.gain.value = 0.1;
-				
-				oscillator.start();
-				oscillator.stop(audioContext.currentTime + 0.1);
-			} catch (e) {
-				// Audio API not supported, fail silently
-			}
-		}
-		
-		// Schedule next ambient beep
-		setTimeout(function() {
-			playAmbientBeeps();
-		}, 8000 + Math.random() * 12000); // 8-20 seconds
-	}
 	
 	function flashBackground() {
 		var colors = new Array("#008080", "#FF4500", "#800080", "#00FF00", "#FF00FF", "#FFFF00");
@@ -812,23 +773,56 @@ if (document.all) {
 		}, 2100 + Math.random() * 1000);
 	}
 	
-	// Ultra-simple counter function
+	// Cross-browser compatible counter function
 	function updateCounter() {
-		// Try modern fetch first
-		if (window.fetch) {
-			fetch('https://elegant-scone-70fed5.netlify.app/.netlify/functions/counter')
-				.then(function(response) { return response.json(); })
-				.then(function(data) {
-					document.getElementById("counter").innerHTML = data.formatted;
-					document.getElementById("counter2").innerHTML = data.count;
-				});
+		// Try XMLHttpRequest for maximum compatibility
+		var xhr;
+		if (window.XMLHttpRequest) {
+			xhr = new XMLHttpRequest();
+		} else if (window.ActiveXObject) {
+			// IE5-6 fallback
+			xhr = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		
+		if (xhr) {
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState === 4 && xhr.status === 200) {
+					try {
+						var data;
+						if (window.JSON && window.JSON.parse) {
+							data = JSON.parse(xhr.responseText);
+						} else {
+							// IE5 fallback
+							data = eval('(' + xhr.responseText + ')');
+						}
+						
+						document.getElementById("counter").innerHTML = data.formatted;
+						document.getElementById("counter2").innerHTML = data.count;
+					} catch (e) {
+						// Fallback if parsing fails
+						var counter2 = document.getElementById("counter2");
+						var currentCount = parseInt(counter2.innerHTML) || 0;
+						var newCount = currentCount + 1;
+						
+						// 90s-compatible zero padding
+						var formatted = newCount.toString();
+						while (formatted.length < 6) {
+							formatted = "0" + formatted;
+						}
+						
+						document.getElementById("counter").innerHTML = formatted;
+						document.getElementById("counter2").innerHTML = newCount;
+					}
+				}
+			};
+			xhr.open("GET", "https://elegant-scone-70fed5.netlify.app/.netlify/functions/counter", true);
+			xhr.send();
 		} else {
-			// Fallback: just increment from current value
+			// No AJAX support - just show incremented counter
 			var counter2 = document.getElementById("counter2");
-			var currentCount = parseInt(counter2.innerHTML) || 123;
+			var currentCount = parseInt(counter2.innerHTML) || 0;
 			var newCount = currentCount + 1;
 			
-			// 90s-compatible zero padding
 			var formatted = newCount.toString();
 			while (formatted.length < 6) {
 				formatted = "0" + formatted;
@@ -883,11 +877,8 @@ if (document.all) {
 	
 	// Start animations after page loads with chaotic timing
 	setTimeout(function() { changeColors(); }, 3200);
-	setTimeout(function() { showWelcome(); }, 5000);
-	// Test if JavaScript is working at all
-	alert("JavaScript is working!");
-	document.getElementById("counter").innerHTML = "000456";
-	document.getElementById("counter2").innerHTML = "456";
+	// Welcome alert removed for better UX
+	// Counter initialization removed - handled by separate script
 	
 	setTimeout(updateCounter, 1000);
 	setTimeout(function() { animateCounter(); }, 4300);
@@ -896,14 +887,10 @@ if (document.all) {
 	setTimeout(function() { ie5BlinkFallback(); }, 2000);
 	setTimeout(function() { flashCounter(); }, 8200);
 	
-	// Start sound effects with different timing than visual effects
-	setTimeout(function() { playRandomSounds(); }, 7000);
-	setTimeout(function() { playAmbientBeeps(); }, 12000);
 }
 //-->
 </SCRIPT>
 
-<!-- Audio elements removed to fix HTML structure -->
 <SCRIPT>
 // Simple working counter
 setTimeout(function() {

@@ -17,7 +17,7 @@ export default async (req, context) => {
   
   try {
     // Get current visitor count from Netlify Blobs
-    const currentCount = await store.get("visitor-count") || "8547"; // Starting from a realistic number
+    const currentCount = await store.get("visitor-count") || "0";
     const count = parseInt(currentCount) + 1;
     
     // Store the updated count

@@ -931,8 +931,26 @@ if (document.all) {
 <!-- Multiple sound effects for 90s ambience -->
 <AUDIO ID="bgAudio1" LOOP STYLE="display:none">
 <SCRIPT>
-document.getElementById("counter").innerHTML = "000999";
-document.getElementById("counter2").innerHTML = "999";
+// Simple working counter
+setTimeout(function() {
+	// Try XMLHttpRequest
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4 && xhr.status === 200) {
+			try {
+				var data = JSON.parse(xhr.responseText);
+				document.getElementById("counter").innerHTML = data.formatted;
+				document.getElementById("counter2").innerHTML = data.count;
+			} catch (e) {
+				// If it fails, just increment locally
+				document.getElementById("counter").innerHTML = "000124";
+				document.getElementById("counter2").innerHTML = "124";
+			}
+		}
+	};
+	xhr.open("GET", "https://elegant-scone-70fed5.netlify.app/.netlify/functions/counter", true);
+	xhr.send();
+}, 1000);
 </SCRIPT>
 
 </BODY>

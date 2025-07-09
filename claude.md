@@ -27,7 +27,8 @@ This is a 1990s-style recreation of the Bespoke Vehicle Maintenance website, des
 - **index.html** - Main homepage with complete business information, working visitor counter, photo gallery
 - **privacy-policy.html** - Legal page with comprehensive GDPR compliance (11 sections)
 - **terms-of-service.html** - Service terms with Consumer Rights Act 2015 compliance (14 sections)
-- **netlify/functions/counter.mjs** - Modern ES module serverless visitor counter with JSON storage and CORS
+- **netlify/functions/counter.mjs** - Modern ES module serverless visitor counter with Netlify Blobs persistent storage and CORS
+- **netlify/functions/reset-counter.mjs** - Function to reset visitor counter to 0 for testing purposes
 - **assets/** - Processed terrible quality images for authentic 90s appearance
 
 ### Styling Conventions
@@ -41,11 +42,13 @@ This is a 1990s-style recreation of the Bespoke Vehicle Maintenance website, des
 ## Development Guidelines
 
 ### Visitor Counter
-- **Netlify Functions** - Use serverless functions for working visitor counter (counter.mjs)
+- **Netlify Functions** - Use serverless functions for working visitor counter (counter.mjs, reset-counter.mjs)
 - **Cross-browser compatibility** - XMLHttpRequest with ActiveXObject fallback for IE5-6
-- **File storage** - Counter data stored in /tmp/visitor_count.json with CORS headers
+- **Persistent storage** - Counter data stored in Netlify Blobs using @netlify/blobs package
 - **Modern format** - ES module using export default with Request/Response objects
 - **Fallback behavior** - Local increment if AJAX fails, ensuring counter always works
+- **Reset functionality** - Dedicated reset-counter.mjs endpoint for testing/maintenance purposes
+- **Proper persistence** - Uses getStore("visitor-metrics") to avoid ephemeral /tmp storage issues
 
 ### Image Processing
 - **Terrible quality** - Process images with heavy compression (quality 15-25)
@@ -83,7 +86,7 @@ This is a 1990s-style recreation of the Bespoke Vehicle Maintenance website, des
 - Clean HTML structure without unclosed tags or audio elements
 
 ### Technical Implementation Notes
-- **Visitor counter**: Fully functional with real-time incrementation via Netlify Functions
+- **Visitor counter**: Fully functional with real-time incrementation via Netlify Functions using Blobs persistent storage
 - **Cross-browser support**: Tested and working from IE5 through modern browsers
 - **Error handling**: Graceful fallbacks ensure functionality even if external services fail
 - **HTML validation**: Clean structure without deprecated audio elements that caused parsing issues
